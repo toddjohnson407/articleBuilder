@@ -1,0 +1,18 @@
+<md-editor name="Content" [upload]="doUpload" [ngModel]="prevContent" #editor></md-editor>
+
+<button mat-stroked-button (click)="createNewPost()" color="primary" type="button">Upload</button>
+
+<div class="new-post-page">
+  <mat-card class="new-post">
+    <form [formGroup]="newPostForm" (ngSubmit)="createNewPost()" class="new-post-form">
+      <p>Create a New Post</p>
+      <mat-form-field class="new-post-field">
+        <input matInput formControlName="title" placeholder="Post Title">
+      </mat-form-field>
+      <mat-form-field class="new-post-field">
+        <textarea matInput formControlName="content" placeholder="Post Content"></textarea>
+      </mat-form-field>
+      <button mat-stroked-button type="submit" color="primary">Submit</button>
+    </form>
+  </mat-card>
+</div>

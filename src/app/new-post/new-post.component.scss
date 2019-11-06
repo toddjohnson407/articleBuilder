@@ -1,0 +1,19 @@
+
+.new-post-page {
+
+  .new-post {
+    margin: 48px auto;
+    width: 55%;
+    padding-bottom: 32px;
+  }
+  .new-post-form {
+    display: flex;
+    flex-flow: column wrap;
+
+    & > p { font-size: 175%; text-align: center; }
+    & > .new-post-field {
+      margin: 24px;
+    }
+  }
+
+}

@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-articlebuilder-dev-13606-authRole",
+            "UnauthRoleArn": "arn:aws:iam::336618631750:role/amplify-articlebuilder-dev-13606-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::336618631750:role/amplify-articlebuilder-dev-13606-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-articlebuilder-dev-13606-deployment",
+            "UnauthRoleName": "amplify-articlebuilder-dev-13606-unauthRole",
+            "StackName": "amplify-articlebuilder-dev-13606",
+            "StackId": "arn:aws:cloudformation:us-west-2:336618631750:stack/amplify-articlebuilder-dev-13606/79d26470-0070-11ea-a317-061bf9db5e72"
+        },
+        "categories": {
+            "auth": {
+                "articlebuilderbacd750b": {}
+            }
+        }
+    }
+}

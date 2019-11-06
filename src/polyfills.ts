@@ -1,3 +1,11 @@
+declare global {
+  interface Window { global: any; }
+}
+window.global = window;
+
+import 'brace';
+import 'brace/mode/markdown';
+
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
