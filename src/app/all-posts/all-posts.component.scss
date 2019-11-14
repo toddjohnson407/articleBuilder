@@ -1,0 +1,53 @@
+
+
+.all-posts-page {
+  width: 75%;
+  margin: 48px auto;
+  display: flex;
+  flex-direction: column;
+
+  & > .all-posts-header {
+    padding: 24px;
+    box-sizing: border-box;
+    width: 75vw;
+    font-size: 300%;
+    background: #019CBB;
+    color: white;
+  }
+
+  & > .all-posts-ctn {
+    display: flex;
+    padding: 40px 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    & > .single-post {
+      margin: 48px 24px 0;
+      width: 35%;
+      display: flex;
+      justify-content: flex-start;
+      // align-items: center;
+      flex-direction: column;
+      &:hover { cursor: pointer }
+  
+      & > .post-title {
+        font-family: 'Roboto';
+        font-weight: bolder;
+        margin: 16px 0;
+        width: 100%;
+        font-size: 150%;
+      }
+
+      & > .post-description {
+        font-style: italic;
+        text-overflow: ellipsis;
+      }
+
+    }
+  }
+}
+
+.new-post-btn-ctn {
+  margin: 48px 0 24px;
+  display: flex;
+  justify-content: center;
+}

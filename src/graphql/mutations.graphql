@@ -1,9 +1,41 @@
 # this is an auto generated file. This will be overwritten
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    id
+    username
+    firstName
+    lastName
+    bio
+    image
+  }
+}
+mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    id
+    username
+    firstName
+    lastName
+    bio
+    image
+  }
+}
+mutation DeleteUser($input: DeleteUserInput!) {
+  deleteUser(input: $input) {
+    id
+    username
+    firstName
+    lastName
+    bio
+    image
+  }
+}
 mutation CreatePost($input: CreatePostInput!) {
   createPost(input: $input) {
     id
     title
     content
+    author
+    description
   }
 }
 mutation UpdatePost($input: UpdatePostInput!) {
@@ -11,6 +43,8 @@ mutation UpdatePost($input: UpdatePostInput!) {
     id
     title
     content
+    author
+    description
   }
 }
 mutation DeletePost($input: DeletePostInput!) {
@@ -18,5 +52,7 @@ mutation DeletePost($input: DeletePostInput!) {
     id
     title
     content
+    author
+    description
   }
 }

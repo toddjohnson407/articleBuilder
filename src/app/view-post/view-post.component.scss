@@ -1,0 +1,48 @@
+
+div.view-post-page {
+
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  
+  & > div.post {
+    width: 75%;
+    padding-bottom: 32px;
+    background: rgb(247, 247, 247);
+    & > div.post-header {
+      background: #019CBB;
+      font-family: 'Roboto';
+      color: white;
+      padding: 24px;
+      margin: 0 0 36px;
+
+      & > .post-title {
+        font-weight: bolder;
+        font-size: 225%;  
+      }
+
+      & > .post-author {
+        font-size: 105%;
+        font-style: italic;
+        margin: 4px 0 0 8px;
+      }
+    }
+
+
+    & .post-content {
+      width: 70%;
+      margin: auto;
+      // margin: 48px auto 16px 16px;
+    }
+  }
+}
+
+.all-posts-btn-ctn {
+  margin-top: 56px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  & > button {
+    width: max-content;
+  }
+}

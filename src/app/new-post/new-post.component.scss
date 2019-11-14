@@ -1,19 +1,23 @@
 
-.new-post-page {
+.new-post-ctn {
+  width: 80%;
+  margin: auto;
+  margin-top: 5%;
 
-  .new-post {
-    margin: 48px auto;
-    width: 55%;
-    padding-bottom: 32px;
+  & > .new-post-title {
+    font-size: 180%;
+    font-weight: bolder;
+    text-align: center;
   }
-  .new-post-form {
-    display: flex;
-    flex-flow: column wrap;
 
-    & > p { font-size: 175%; text-align: center; }
-    & > .new-post-field {
-      margin: 24px;
+  & > form.new-post-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    & > mat-form-field.post-field {
+      width: 75%;
+      margin: 24px 0;
     }
   }
-
 }

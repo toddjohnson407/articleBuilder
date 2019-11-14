@@ -1,0 +1,15 @@
+
+
+<div class="all-posts-page">
+  <div class="all-posts-header">All Posts</div>
+  <div class="all-posts-ctn">
+    <mat-card class="single-post" *ngFor="let post of allPostsContent;" (click)="viewPost(post.title)">
+      <div class="post-title">{{ post.title }}</div>
+      <div class="post-description">{{ post.description || 'An article on software/web development.' }}</div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="nav-btn-ctn">
+  <button mat-stroked-button color="primary" routerLink="/new-post">New Post</button>
+</div>

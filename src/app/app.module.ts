@@ -11,13 +11,17 @@ import { CommonMaterialModule } from './common/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 
-import { LMarkdownEditorModule } from 'ngx-markdown-editor';
+import { MarkdownModule } from 'ngx-markdown';
+import { AllPostsComponent } from './all-posts/all-posts.component';
+import { ViewPostComponent } from './view-post/view-post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewPostComponent,
-    AuthComponent
+    AuthComponent,
+    AllPostsComponent,
+    ViewPostComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,7 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
     AppRoutingModule,
     AmplifyAngularModule,
     BrowserAnimationsModule,
-    LMarkdownEditorModule
+    MarkdownModule.forRoot()
   ],
   providers: [AmplifyService],
   bootstrap: [AppComponent]

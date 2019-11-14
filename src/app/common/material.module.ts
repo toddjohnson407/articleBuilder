@@ -28,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 		MatSelectModule,
 		MatAutocompleteModule,
 		MatTooltipModule,
-		MatSlideToggleModule
+		MatSlideToggleModule,
+		LayoutModule
 	],
 	exports: [
 		MatInputModule,
@@ -85,7 +87,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 		MatSelectModule,
 		MatAutocompleteModule,
 		MatTooltipModule,
-		MatSlideToggleModule
+		MatSlideToggleModule,
+		LayoutModule
 	]
 })
 export class CommonMaterialModule { }

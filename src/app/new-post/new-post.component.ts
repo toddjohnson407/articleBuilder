@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { APIService } from '../API.service';
+
+import { NewPost } from './new-post';
 
 @Component({
   selector: 'app-new-post',
@@ -9,40 +11,88 @@ import { APIService } from '../API.service';
 })
 export class NewPostComponent implements OnInit {
 
-  /** Form for new posts */
-  newPostForm: FormGroup;
+  // /** FormControl for the text editor (article content) */
+  // editorControl: FormControl;
+  // /** FormControl for the article title */
+  // title: FormControl;
 
-  /** Previous editor content */
-  prevContent: any = "Test"
+  /** FormControl for the display format of md-editor */
+  displayControl: FormControl;
+  /** Options for the display format of md-editor */
+  dispOpts: Object = {
+    showPreviewPanel: true
+  }
 
-  @ViewChild('editor', {static:false}) editor: any;
+  /** FormGroup for new post fields */
+  newPost: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private api: APIService
   ) {
-    this.newPostForm = this.fb.group({
-      title: [''],
-      content: ['']
+    // this.editorControl = new FormControl('');
+    // this.title = new FormControl('');
+    this.displayControl = new FormControl();
+
+    this.newPost = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      author: ['', Validators.required],
+      content: ['', Validators.required]
     })
   }
 
-  async ngOnInit() {
-    let posts = await this.api.ListPosts();
-    this.doUpload = this.doUpload.bind(this);
-    console.log(this.editor);
-  }
+  ngOnInit() {
 
-  doUpload(files: Array<File>): any {
-    // let test = Promise.resolve([{ name: 'xxx', url: 'xxx.png', isImg: true }]);
-    return Promise.resolve([{ name: 'xxx', url: 'xxx.png', isImg: true }]);
   }
 
   /** Sends an api request to create a new post */
   createNewPost(): void  {
-    let postData = { title: this.newPostForm.get('title').value, content: this.newPostForm.get('content').value };
-    console.log(postData);
-    this.api.CreatePost(postData).then(post => console.log('New Post Successful:', post));
+    let postData: any = Object.entries(this.newPost.controls).reduce((acc, [key, {value}]) => {
+      acc[key] = value;
+      return acc;
+    },{});
+    this.api.CreatePost(postData).then(post => console.log('New Post Successful:', post)).catch(err => console.error('Error creating post:', err));
   }
 
+  // Getters for newPost FormControls
+  get title() { return this.newPost.get('title') }
+  get description() { return this.newPost.get('description') }
+  get author() { return this.newPost.get('author') }
+  get content() { return this.newPost.get('content') }
+
 }
+
+// ### A Brief Overview
+// The map function is used to create a changed, or mutated, version of an existing array.
+
+// Below is an example of how to retrieve certain attributes from an array of objects.
+
+// ```typescript
+// let people = [
+//   { name: 'John', age: 23 }
+//   { name: 'Suzy', age: 35 }
+// ]
+
+// let names = people.map(person => person.name);
+
+// // Output: ['John', 'Suzy']
+
+// ```
+
+// ### Using Destructuring
+// We can use destructuring to simplify our map function.
+
+// ```typescript
+// let people = [
+//   { name: 'John', age: 23, city: 'Madrid' }
+//   { name: 'Suzy', age: 35, city: 'Chicago' }
+// ]
+
+// // Because 'name' is a key in all of these objects we
+// // can directly access the 'name' value
+// let names = people.map(({name}) => name);
+
+// ```
+// ### Conclusion
+// The map function is really useful.

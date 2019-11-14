@@ -5,29 +5,58 @@ import API, { graphqlOperation } from "@aws-amplify/api";
 import { GraphQLResult } from "@aws-amplify/api/lib/types";
 import * as Observable from "zen-observable";
 
+export type CreateUserInput = {
+  id?: string | null;
+  username: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  bio?: string | null;
+  image?: string | null;
+};
+
+export type UpdateUserInput = {
+  id: string;
+  username?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  bio?: string | null;
+  image?: string | null;
+};
+
+export type DeleteUserInput = {
+  id?: string | null;
+};
+
 export type CreatePostInput = {
   id?: string | null;
   title: string;
   content: string;
+  author?: string | null;
+  description?: string | null;
 };
 
 export type UpdatePostInput = {
   id: string;
   title?: string | null;
   content?: string | null;
+  author?: string | null;
+  description?: string | null;
 };
 
 export type DeletePostInput = {
   id?: string | null;
 };
 
-export type ModelPostFilterInput = {
+export type ModelUserFilterInput = {
   id?: ModelIDFilterInput | null;
-  title?: ModelStringFilterInput | null;
-  content?: ModelStringFilterInput | null;
-  and?: Array<ModelPostFilterInput | null> | null;
-  or?: Array<ModelPostFilterInput | null> | null;
-  not?: ModelPostFilterInput | null;
+  username?: ModelStringFilterInput | null;
+  firstName?: ModelStringFilterInput | null;
+  lastName?: ModelStringFilterInput | null;
+  bio?: ModelStringFilterInput | null;
+  image?: ModelStringFilterInput | null;
+  and?: Array<ModelUserFilterInput | null> | null;
+  or?: Array<ModelUserFilterInput | null> | null;
+  not?: ModelUserFilterInput | null;
 };
 
 export type ModelIDFilterInput = {
@@ -56,11 +85,54 @@ export type ModelStringFilterInput = {
   beginsWith?: string | null;
 };
 
+export type ModelPostFilterInput = {
+  id?: ModelIDFilterInput | null;
+  title?: ModelStringFilterInput | null;
+  content?: ModelStringFilterInput | null;
+  author?: ModelStringFilterInput | null;
+  description?: ModelStringFilterInput | null;
+  and?: Array<ModelPostFilterInput | null> | null;
+  or?: Array<ModelPostFilterInput | null> | null;
+  not?: ModelPostFilterInput | null;
+};
+
+export type CreateUserMutation = {
+  __typename: "User";
+  id: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  bio: string | null;
+  image: string | null;
+};
+
+export type UpdateUserMutation = {
+  __typename: "User";
+  id: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  bio: string | null;
+  image: string | null;
+};
+
+export type DeleteUserMutation = {
+  __typename: "User";
+  id: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  bio: string | null;
+  image: string | null;
+};
+
 export type CreatePostMutation = {
   __typename: "Post";
   id: string;
   title: string;
   content: string;
+  author: string | null;
+  description: string | null;
 };
 
 export type UpdatePostMutation = {
@@ -68,6 +140,8 @@ export type UpdatePostMutation = {
   id: string;
   title: string;
   content: string;
+  author: string | null;
+  description: string | null;
 };
 
 export type DeletePostMutation = {
@@ -75,6 +149,32 @@ export type DeletePostMutation = {
   id: string;
   title: string;
   content: string;
+  author: string | null;
+  description: string | null;
+};
+
+export type GetUserQuery = {
+  __typename: "User";
+  id: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  bio: string | null;
+  image: string | null;
+};
+
+export type ListUsersQuery = {
+  __typename: "ModelUserConnection";
+  items: Array<{
+    __typename: "User";
+    id: string;
+    username: string;
+    firstName: string | null;
+    lastName: string | null;
+    bio: string | null;
+    image: string | null;
+  } | null> | null;
+  nextToken: string | null;
 };
 
 export type GetPostQuery = {
@@ -82,6 +182,8 @@ export type GetPostQuery = {
   id: string;
   title: string;
   content: string;
+  author: string | null;
+  description: string | null;
 };
 
 export type ListPostsQuery = {
@@ -91,8 +193,40 @@ export type ListPostsQuery = {
     id: string;
     title: string;
     content: string;
+    author: string | null;
+    description: string | null;
   } | null> | null;
   nextToken: string | null;
+};
+
+export type OnCreateUserSubscription = {
+  __typename: "User";
+  id: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  bio: string | null;
+  image: string | null;
+};
+
+export type OnUpdateUserSubscription = {
+  __typename: "User";
+  id: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  bio: string | null;
+  image: string | null;
+};
+
+export type OnDeleteUserSubscription = {
+  __typename: "User";
+  id: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  bio: string | null;
+  image: string | null;
 };
 
 export type OnCreatePostSubscription = {
@@ -100,6 +234,8 @@ export type OnCreatePostSubscription = {
   id: string;
   title: string;
   content: string;
+  author: string | null;
+  description: string | null;
 };
 
 export type OnUpdatePostSubscription = {
@@ -107,6 +243,8 @@ export type OnUpdatePostSubscription = {
   id: string;
   title: string;
   content: string;
+  author: string | null;
+  description: string | null;
 };
 
 export type OnDeletePostSubscription = {
@@ -114,12 +252,74 @@ export type OnDeletePostSubscription = {
   id: string;
   title: string;
   content: string;
+  author: string | null;
+  description: string | null;
 };
 
 @Injectable({
   providedIn: "root"
 })
 export class APIService {
+  async CreateUser(input: CreateUserInput): Promise<CreateUserMutation> {
+    const statement = `mutation CreateUser($input: CreateUserInput!) {
+        createUser(input: $input) {
+          __typename
+          id
+          username
+          firstName
+          lastName
+          bio
+          image
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateUserMutation>response.data.createUser;
+  }
+  async UpdateUser(input: UpdateUserInput): Promise<UpdateUserMutation> {
+    const statement = `mutation UpdateUser($input: UpdateUserInput!) {
+        updateUser(input: $input) {
+          __typename
+          id
+          username
+          firstName
+          lastName
+          bio
+          image
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateUserMutation>response.data.updateUser;
+  }
+  async DeleteUser(input: DeleteUserInput): Promise<DeleteUserMutation> {
+    const statement = `mutation DeleteUser($input: DeleteUserInput!) {
+        deleteUser(input: $input) {
+          __typename
+          id
+          username
+          firstName
+          lastName
+          bio
+          image
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteUserMutation>response.data.deleteUser;
+  }
   async CreatePost(input: CreatePostInput): Promise<CreatePostMutation> {
     const statement = `mutation CreatePost($input: CreatePostInput!) {
         createPost(input: $input) {
@@ -127,6 +327,8 @@ export class APIService {
           id
           title
           content
+          author
+          description
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -144,6 +346,8 @@ export class APIService {
           id
           title
           content
+          author
+          description
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -161,6 +365,8 @@ export class APIService {
           id
           title
           content
+          author
+          description
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -171,6 +377,61 @@ export class APIService {
     )) as any;
     return <DeletePostMutation>response.data.deletePost;
   }
+  async GetUser(id: string): Promise<GetUserQuery> {
+    const statement = `query GetUser($id: ID!) {
+        getUser(id: $id) {
+          __typename
+          id
+          username
+          firstName
+          lastName
+          bio
+          image
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetUserQuery>response.data.getUser;
+  }
+  async ListUsers(
+    filter?: ModelUserFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListUsersQuery> {
+    const statement = `query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
+        listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            username
+            firstName
+            lastName
+            bio
+            image
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListUsersQuery>response.data.listUsers;
+  }
   async GetPost(id: string): Promise<GetPostQuery> {
     const statement = `query GetPost($id: ID!) {
         getPost(id: $id) {
@@ -178,6 +439,8 @@ export class APIService {
           id
           title
           content
+          author
+          description
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -201,6 +464,8 @@ export class APIService {
             id
             title
             content
+            author
+            description
           }
           nextToken
         }
@@ -220,6 +485,54 @@ export class APIService {
     )) as any;
     return <ListPostsQuery>response.data.listPosts;
   }
+  OnCreateUserListener: Observable<OnCreateUserSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateUser {
+        onCreateUser {
+          __typename
+          id
+          username
+          firstName
+          lastName
+          bio
+          image
+        }
+      }`
+    )
+  ) as Observable<OnCreateUserSubscription>;
+
+  OnUpdateUserListener: Observable<OnUpdateUserSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateUser {
+        onUpdateUser {
+          __typename
+          id
+          username
+          firstName
+          lastName
+          bio
+          image
+        }
+      }`
+    )
+  ) as Observable<OnUpdateUserSubscription>;
+
+  OnDeleteUserListener: Observable<OnDeleteUserSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteUser {
+        onDeleteUser {
+          __typename
+          id
+          username
+          firstName
+          lastName
+          bio
+          image
+        }
+      }`
+    )
+  ) as Observable<OnDeleteUserSubscription>;
+
   OnCreatePostListener: Observable<OnCreatePostSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreatePost {
@@ -228,6 +541,8 @@ export class APIService {
           id
           title
           content
+          author
+          description
         }
       }`
     )
@@ -241,6 +556,8 @@ export class APIService {
           id
           title
           content
+          author
+          description
         }
       }`
     )
@@ -254,6 +571,8 @@ export class APIService {
           id
           title
           content
+          author
+          description
         }
       }`
     )

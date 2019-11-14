@@ -11,4 +11,6 @@ type Post @model {
   id: ID!
   title: String!
   content: String!
+  author: String
+  description: String
 }
