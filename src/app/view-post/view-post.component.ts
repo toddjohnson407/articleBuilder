@@ -25,9 +25,7 @@ export class ViewPostComponent implements OnInit {
     
     let posts = await this.api.ListPosts({ title: { eq: title } });
     !posts || !posts.items.length && this.router.navigateByUrl('/all-posts');
-    console.log(posts);
-    this.post = posts.items.map(({title,content, author}) => ({title,content, author}))[0];
-    console.log(this.post)
+    this.post = posts.items.map(({title,content,author,description}) => ({title,content,author,description}))[0];
   }
 
 }

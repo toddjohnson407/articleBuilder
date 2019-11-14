@@ -19,9 +19,7 @@ export class AllPostsComponent implements OnInit {
 
   async ngOnInit() {
     let posts = await this.api.ListPosts();
-    console.log(posts);
     this.allPostsContent = posts.items.map(({title, content, author, description}) => ({ title, content, author, description }));
-    console.log(this.allPostsContent);
   }
 
   /** Navigates to the selected post page */

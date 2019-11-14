@@ -3,7 +3,7 @@
   
   <div class="new-post-title">New Blog Post</div>
 
-  <form [formGroup]="newPost" class="new-post-form">
+  <form [formGroup]="newPost" class="new-post-form" (ngSubmit)="createNewPost()">
     <mat-form-field class="post-field">
       <input matInput formControlName="title" placeholder="Blog Post Title ...">
     </mat-form-field>

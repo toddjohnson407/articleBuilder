@@ -3,8 +3,11 @@
 
   <div class="post" *ngIf="post">
     <div class="post-header">
-      <div class="post-title">{{ post.title }}</div>
-      <div class="post-author" *ngIf="post.author">By: {{ post.author }}</div>
+      <div class="top">
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-author" *ngIf="post.author">Author: {{ post.author }}</div>
+      </div>
+      <div class="post-description">{{ post.description || 'An article on software/web development.' }}</div>
     </div>
     <div class="post-content">
       <markdown lineNumbers [data]="post.content"></markdown>
